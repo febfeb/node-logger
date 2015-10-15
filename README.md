@@ -13,4 +13,4 @@ Then, please open your browser at ```http://localhost:1337```.
 
 You can use my simple php class inside ```php-sample``` folder. Code usage :
 
-```NodeLogger::sendLog($yourVariable);```
+```NodeLogger::sendLog($yourVariable);```.
