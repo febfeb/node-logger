@@ -5,7 +5,8 @@ var io = require('socket.io')(http);
 var moment = require('moment');
 var port = 1337;
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/files/index.html');
@@ -14,7 +15,7 @@ app.get('/jquery.js', function (req, res) {
     res.sendFile(__dirname + '/files/jquery.js');
 });
 
-app.post('/ws',function(req,res){
+app.post('/ws', function (req, res) {
     var message = req.body.message;
     emit(message);
     res.send("OK");
@@ -36,10 +37,10 @@ io.on('connection', function (socket) {
     });
 });
 
-function emit(message){
+function emit(message) {
     var output = {
-        waktu : moment().format("MMMM Do YYYY, h:mm:ss a"),
-        message : message
+        waktu: moment().format("MMMM Do YYYY, h:mm:ss a"),
+        message: message
     };
     io.emit('chat message', output);
 }

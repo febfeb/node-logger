@@ -9,6 +9,7 @@ This tool is very useful when your application doesn't allow you to echo-ing a s
 To start this service, you can type this in terminal :
 
 ```
+$ yarn
 $ node index.js
 ```
 
