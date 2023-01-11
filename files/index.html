@@ -47,6 +47,11 @@
                     $('#messages').html("");
                     return;
                 }
+
+                let ms = msg.message;
+
+                console.log(...ms);
+
                 $('#messages').append($('<li>').html("<span class='waktu'>" + msg.waktu + "</span><pre>" + msg.message + "</pre>"));
                 window.scrollTo(0,document.body.scrollHeight);
             });
