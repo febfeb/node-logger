@@ -16,7 +16,7 @@ app.get('/jquery.js', function (req, res) {
 });
 
 app.post('/ws', function (req, res) {
-    var message = req.body.message;
+    var message = req.body ? req.body.message : undefined;
     emit(message);
     res.send("OK");
 });

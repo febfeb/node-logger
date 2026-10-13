@@ -52,7 +52,13 @@
 
                 console.log(...ms);
 
-                $('#messages').append($('<li>').html("<span class='waktu'>" + msg.waktu + "</span><pre>" + msg.message + "</pre>"));
+                // Create elements separately to properly escape HTML content
+                var li = $('<li>');
+                var timeSpan = $('<span>').addClass('waktu').text(msg.waktu);
+                var preElement = $('<pre>').text(msg.message);
+                
+                li.append(timeSpan).append(preElement);
+                $('#messages').append(li);
                 window.scrollTo(0,document.body.scrollHeight);
             });
         </script>

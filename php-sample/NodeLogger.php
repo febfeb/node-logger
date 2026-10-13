@@ -1,8 +1,16 @@
 <?php
+namespace app\components;
+
+/**
+ * Class NodeLogger
+ * @package app\components
+ *
+ * @author febfeb
+ * @see http://github.com/febfeb/node-logger
+ */
 
 class NodeLogger {
     public static function sendLog($message){
-        
         if(!is_string($message)){
             $message = NodeLogger::renderJSON($message);
         }
@@ -10,21 +18,18 @@ class NodeLogger {
         $fields = array(
             'message' => $message
         );
-        
-        foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-        rtrim($fields_string, '&');
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "http://localhost:1337/ws");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-        curl_setopt($ch,CURLOPT_POST, count($fields));
-        curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($fields));
         $output = curl_exec($ch); 
         curl_close($ch);
     }
     
     private static function renderJSON($jsonObj) {
-        $json = json_encode($jsonObj);
+        $json = \yii\helpers\Json::encode($jsonObj);
         $result = '';
         $level = 0;
         $prev_char = '';
